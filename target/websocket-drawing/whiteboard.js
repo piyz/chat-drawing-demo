@@ -1,8 +1,14 @@
 var canvas = document.getElementById("myCanvas");
 var context = canvas.getContext("2d");
 //canvas.addEventListener("click", defineImage, false);
+
+
 var flag = false;
-canvas.addEventListener("mousemove", defineImage);
+canvas.addEventListener("mousemove", function (ev) {
+    if (flag){
+        defineImage(ev);
+    }
+});
 canvas.addEventListener("mousedown", function (ev) {
     flag = true;
     context.beginPath();
@@ -44,38 +50,19 @@ function defineImage(evt) {
         }
     });
 
-    /*
-    var arrx = [];
-    var arry = [];
-    var count = 100;
-    while (count > -1){
-        arrx.push(currentPos.x);
-        arry.push(currentPos.y);
-        count--;
-    }
-
-    for (var k = 0; k < arrx.length; k++) {
-        var json = JSON.stringify({
-            "shape": shape.value,
-            "color": color.value,
-            "coords": {
-                "x": arrx[k],
-                "y": arry[k]
-            }
-        });
-        drawImageText(json);
-        sendText(json);
-    }
-         */
-
     drawImageText(json);
-    sendText(json);
+    sendText(json); //websocket send
 }
 
 function drawImageText(image) {
     console.log("drawImageText");
     var json = JSON.parse(image);
     context.fillStyle = json.color;
+
+    context.lineTo(json.coords.x, json.coords.y);
+    context.stroke();
+
+    /*
     switch (json.shape) {
         case "circle":
             context.beginPath();
@@ -87,19 +74,5 @@ function drawImageText(image) {
             context.fillRect(json.coords.x, json.coords.y, 10, 10);
             break;
     }
+     */
 }
-
-/*
-myObj = {
-    "shape": shape.value,
-    "color": color.value,
-    "coords": [
-        { "x": getCurrentPos.x, "y": getCurrentPos.y },
-        { "x": getCurrentPos.x, "y": getCurrentPos.y },
-        { "x": getCurrentPos.x, "y": getCurrentPos.y }
-    ]
-};
-
-var arrX = [1, 2, 3];
-var arrY = [4, 5, 8];
- */
