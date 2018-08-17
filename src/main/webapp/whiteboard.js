@@ -44,6 +44,7 @@ function defineImage(evt) {
     var json = JSON.stringify({
         "shape": shape.value,
         "color": color.value,
+        "type" : 'DRAW',
         "coords": {
             "x": currentPos.x,
             "y": currentPos.y

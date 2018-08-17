@@ -30,5 +30,22 @@ function sendText(json) {
 
 function onMessage(evt) {
     console.log("received: " + evt.data);
-    drawImageText(evt.data);
+    var json = JSON.parse(evt.data);
+    if (json.type === 'DRAW'){
+        drawImageText(evt.data);
+    }else {
+        document.getElementById('messages').value += json.sender + ': ' + json.textMessage + '\n';
+    }
+}
+
+function send() {
+    var textMessage = document.getElementById('textMessage');
+
+    var json = JSON.stringify({
+        'textMessage' : textMessage.value,
+        'type' : 'CHAT'
+    });
+
+    websocket.send(json);
+    textMessage.value = "";
 }

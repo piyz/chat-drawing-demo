@@ -1,12 +1,11 @@
 <html>
 <body>
     <h1>Collaborative Whiteboard App</h1>
-
     <!--<div id="output"></div> -->
     <table>
         <tr>
             <td>
-                <canvas id="myCanvas" width="600" height="600" style="border:1px solid #000000;"></canvas>
+                <canvas id="myCanvas" width="200" height="200" style="border:1px solid #000000;"></canvas>
             </td>
             <td>
                 <form name="inputForm">
@@ -28,6 +27,11 @@
                         </tr>
                     </table>
                 </form>
+            </td>
+            <td>
+                <textarea id="messages" readonly="readonly" rows="10" cols="45"></textarea><br/>
+                <input id="textMessage" type="text" size="50"/>
+                <input type="button" value="Send" onclick="send()"/>
             </td>
         </tr>
     </table>

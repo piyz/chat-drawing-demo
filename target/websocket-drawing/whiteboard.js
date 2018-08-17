@@ -44,6 +44,7 @@ function defineImage(evt) {
     var json = JSON.stringify({
         "shape": shape.value,
         "color": color.value,
+        "type" : 'DRAW',
         "coords": {
             "x": currentPos.x,
             "y": currentPos.y
@@ -51,7 +52,7 @@ function defineImage(evt) {
     });
 
     drawImageText(json);
-    sendText(json); //websocket send
+    sendText(json); //send to websocket
 }
 
 function drawImageText(image) {
