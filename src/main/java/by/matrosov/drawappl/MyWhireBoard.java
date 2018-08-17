@@ -11,14 +11,11 @@ import java.util.Set;
 public class MyWhireBoard {
     private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
 
-    //when client receive message
     @OnMessage
     public void broadcastFigure(Figure figure, Session session) throws IOException, EncodeException {
         System.out.println("broadcastFigure: " + figure);
         for (Session peer : peers) {
-            if (!peer.equals(session)) {
-                peer.getBasicRemote().sendObject(figure);
-            }
+            peer.getBasicRemote().sendObject(figure);
         }
     }
 

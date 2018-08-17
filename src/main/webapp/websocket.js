@@ -1,5 +1,6 @@
 var wsUri = "ws://" + document.location.host + document.location.pathname + "whiteboardendpoint";
 var websocket = new WebSocket(wsUri);
+var sender = "s" + Math.random().toString().slice(2);
 
 websocket.onerror = function(evt) { onError(evt) };
 
@@ -34,7 +35,7 @@ function onMessage(evt) {
     if (json.type === 'DRAW'){
         drawImageText(evt.data);
     }else {
-        document.getElementById('messages').value += json.sender + ': ' + json.textMessage + '\n';
+        document.getElementById('messages').value += json.sender + ': ' + json.text + '\n';
     }
 }
 
@@ -42,10 +43,11 @@ function send() {
     var textMessage = document.getElementById('textMessage');
 
     var json = JSON.stringify({
-        'textMessage' : textMessage.value,
+        'sender' : sender,
+        'text' : textMessage.value.toString(),
         'type' : 'CHAT'
     });
 
-    websocket.send(json);
+    sendText(json);
     textMessage.value = "";
 }
